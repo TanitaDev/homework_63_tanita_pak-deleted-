@@ -1,7 +1,8 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.urls import reverse
-from django.views.generic import TemplateView, CreateView, DeleteView, UpdateView
-from django.contrib.auth import authenticate, login, logout
+from django.views.generic import TemplateView, CreateView, DeleteView, UpdateView, DetailView
+from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.shortcuts import redirect
 
 from accounts.forms import LoginForm, CustomUserCreationForm
@@ -59,6 +60,8 @@ class RegisterView(CreateView):
         return next_url
 
 
-class DeleteUser(DeleteView):
-    template_name = 'delete_user.html'
-    model = User
+class ProfileView(LoginRequiredMixin, DetailView):
+    model = get_user_model()
+    template_name = 'profile.html'
+    context_object_name = 'user_obj'
+

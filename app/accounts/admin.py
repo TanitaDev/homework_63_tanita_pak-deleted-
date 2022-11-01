@@ -7,11 +7,11 @@ from accounts.models import Profile
 
 class ProfileInline(admin.StackedInline):
     model = Profile
-    fields = ('avatar', 'about', 'phone')
+    fields = ['avatar', 'about', 'phone']
 
 
 class ProfileAdmin(UserAdmin):
-    inlines = (ProfileInline,)
+    inlines = [ProfileInline]
 
 
 User = get_user_model()
